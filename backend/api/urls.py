@@ -4,7 +4,8 @@ from rest_framework.routers import DefaultRouter
 from .views import (TagViewSet,
                     RecipeViewSet,
                     IngredientViewSet,
-                    CustomUserViewSet)
+                    CustomUserViewSet,
+                    FavoritesViewSet)
 
 
 app_name = 'api'
@@ -14,6 +15,7 @@ router.register('tags', TagViewSet, basename='tags')
 router.register('recipes', RecipeViewSet, basename='recipes')
 router.register('ingredients', IngredientViewSet, basename='ingredients')
 router.register('users', CustomUserViewSet, basename='users')
+router.register('favorites', FavoritesViewSet)
 
 
 urlpatterns = [

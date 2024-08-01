@@ -1,7 +1,6 @@
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.db.models import Sum
-
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.decorators import action
@@ -17,7 +16,8 @@ from .serializers import (TagSerializer,
                           CustomUserSerializer,
                           CustomCreateUserSerializer,
                           SubscriptionsSerializer,
-                          RecipeSerializer)
+                          RecipeSerializer,
+                          FavoritesSerializer)
 from .pagination import Pagination
 from .permissions import IsAdminOrReadOnly, IsAuthorOrReadOnly
 
@@ -97,6 +97,7 @@ class IngredientViewSet(ReadOnlyModelViewSet):
 class CustomUserViewSet(UserViewSet):
     queryset = User.objects.all()
     pagination_class = Pagination
+    search_fields = ['username', 'email']
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
@@ -128,3 +129,9 @@ class CustomUserViewSet(UserViewSet):
         serializer = SubscriptionsSerializer(pages, many=True,
                                              context={'request': request})
         return self.get_paginated_response(serializer.data)
+
+
+class FavoritesViewSet(ModelViewSet):
+    queryset = Favorites.objects.all()
+    serializer_class = FavoritesSerializer
+    permission_classes = [IsAuthenticated]

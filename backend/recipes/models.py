@@ -19,6 +19,10 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'Tag'
+        verbose_name_plural = 'Tags'
+
 
 class Ingredient(models.Model):
     name = models.CharField(
@@ -34,6 +38,10 @@ class Ingredient(models.Model):
     measurement_unit = models.CharField(
         max_length=200,
         verbose_name='Единица измерения ингредиента')
+
+    class Meta:
+        verbose_name = 'Ingredient'
+        verbose_name_plural = 'Ingredients'
 
 
 class Recipe(models.Model):
@@ -76,6 +84,8 @@ class Recipe(models.Model):
         verbose_name='Дата публикации')
 
     class Meta:
+        verbose_name = 'Recipe'
+        verbose_name_plural = 'Recipes'
         ordering = ('-pub_date',)
 
     def __str__(self):
@@ -127,6 +137,8 @@ class Favorites(models.Model):
     )
 
     class Meta:
+        verbose_name = 'Favorite'
+        verbose_name_plural = 'Favorites'
         constraints = [
             models.UniqueConstraint(
                 fields=['recipe', 'user'], name='userfavorites_unique')
@@ -149,6 +161,8 @@ class ShoppingCart(models.Model):
         verbose_name='Пользователь')
 
     class Meta:
+        verbose_name = 'ShoppingCart'
+        verbose_name_plural = 'ShoppingCarts'
         constraints = [
             models.UniqueConstraint(
                 fields=['recipe', 'user'], name='usershoppingcart_unique')]
