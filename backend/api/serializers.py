@@ -29,11 +29,12 @@ class IngredientSerializer(ModelSerializer):
 class CustomUserSerializer(ModelSerializer):
     is_subscribed = SerializerMethodField()
     password = serializers.CharField(write_only=True)
+    avatar = Base64ImageField(required=False)
 
     class Meta:
         model = User
         fields = ('email', 'id', 'username', 'first_name',
-                  'last_name', 'is_subscribed', 'password')
+                  'last_name', 'is_subscribed', 'password', 'avatar')
         read_only_fields = ('is_subscribed',)
 
     def get_is_subscribed(self, obj):
@@ -41,6 +42,14 @@ class CustomUserSerializer(ModelSerializer):
         if request and request.user.is_authenticated:
             return obj.is_subscribed(request.user)
         return False
+
+
+class UserAvatarSerializer(serializers.ModelSerializer):
+    avatar = Base64ImageField(required=False)
+
+    class Meta:
+        model = User
+        fields = ['avatar']
 
 
 class CustomCreateUserSerializer(ModelSerializer):
@@ -119,6 +128,7 @@ class RecipeSerializer(ModelSerializer):
                      'author': self.context.get('request').user})
         return data
 
+    @transaction.atomic
     def create(self, validated_data):
         ingredients = validated_data.pop('ingredients')
         tags = validated_data.pop('tags')

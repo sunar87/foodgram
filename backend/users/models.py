@@ -21,12 +21,18 @@ class User(AbstractUser):
     password = models.CharField(
         max_length=150,
         verbose_name='Пароль пользователя')
+    avatar = models.ImageField(upload_to='avatars/',
+                               null=True, blank=True,
+                               )
 
     class Meta:
         ordering = ('username',)
 
     def __str__(self):
         return self.username
+
+    def is_subscribed(self, user):
+        return self.subscribers.filter(user=user).exists()
 
 
 class Subscriptions(models.Model):

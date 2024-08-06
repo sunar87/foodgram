@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.db.models import Sum
-from rest_framework import status
+from rest_framework import status, generics, permissions
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -14,6 +14,7 @@ from .serializers import (TagSerializer,
                           SpecialRecipeSerializer,
                           IngredientSerializer,
                           CustomUserSerializer,
+                          UserAvatarSerializer,
                           CustomCreateUserSerializer,
                           SubscriptionsSerializer,
                           RecipeSerializer,
@@ -129,6 +130,14 @@ class CustomUserViewSet(UserViewSet):
         serializer = SubscriptionsSerializer(pages, many=True,
                                              context={'request': request})
         return self.get_paginated_response(serializer.data)
+
+
+class UserAvatarUpdateView(generics.UpdateAPIView):
+    serializer_class = UserAvatarSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
 
 
 class FavoritesViewSet(ModelViewSet):

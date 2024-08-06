@@ -5,8 +5,8 @@ from .views import (TagViewSet,
                     RecipeViewSet,
                     IngredientViewSet,
                     CustomUserViewSet,
-                    FavoritesViewSet)
-
+                    FavoritesViewSet,
+                    UserAvatarUpdateView)
 
 app_name = 'api'
 
@@ -22,4 +22,6 @@ urlpatterns = [
     path('', include(router.urls), name='api-root'),
     path('', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
+    path('users/me/avatar/', UserAvatarUpdateView.as_view(),
+         name='user-avatar-update'),
 ]

@@ -50,3 +50,4 @@ typing_extensions==4.6.3
 uritemplate==4.1.1
 urllib3==2.0.3
 webcolors==1.11.1
+drf-extra-fields==3.4.0
