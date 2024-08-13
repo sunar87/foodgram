@@ -25,7 +25,7 @@ Foodgram http://semen-foodgram.zapto.org/ - сайт для публикации
 
 1. Клонируйте репозиторий на компьютер:
     ```
-    git clone git@github.com:Fiufew/foodgram.git
+    git clone git@github.com:sunar87/foodgram.git
     ```
 2. Создайте файл переменных окружения `.env` и наполните его своими данными.
 
