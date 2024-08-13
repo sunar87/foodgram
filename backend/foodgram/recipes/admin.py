@@ -42,6 +42,7 @@ class RecipeIngredientInline(admin.StackedInline):
 
     model = RecipeIngredient
     extra = 0
+    min_num = 1
 
 
 class RecipeAdmin(admin.ModelAdmin):
