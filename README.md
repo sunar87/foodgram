@@ -1,4 +1,3 @@
-Ссылка на сайт: http://semen-foodgram.zapto.org/
 #  Foodgram
 
 ## **Описание проекта**:
